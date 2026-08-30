@@ -1,0 +1,25 @@
+# Build outputs
+/swdoom
+*.o
+*.dSYM/
+*.dylib
+linuxdoom-1.10/obj/
+scripts/windowid
+
+# IWADs and PWADs. Fetch Freedoom yourself.
+*.wad
+*.WAD
+*.iwad
+*.pk3
+
+# Runtime captures
+evidence/
+screenshots/
+.DS_Store
+
+# Local agent trail
+decisions.tsv
+.audit/
+GROK_PROMPT.txt
+run-grok-own-doom.command
+AMEND-README-WAD.txt
