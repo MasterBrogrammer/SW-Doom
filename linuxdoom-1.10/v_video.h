@@ -51,6 +51,9 @@ extern  int	dirtybox[4];
 extern	byte	gammatable[5][256];
 extern	int	usegamma;
 
+// Optional 256-byte remap applied by V_DrawPatch. NULL = identity.
+extern	byte*		v_translation;
+
 
 
 // Allocates buffer screens, call before R_Init.
