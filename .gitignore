@@ -5,6 +5,7 @@
 *.dylib
 linuxdoom-1.10/obj/
 scripts/windowid
+dist/
 
 # IWADs and PWADs. Fetch Freedoom yourself.
 *.wad

@@ -29,6 +29,17 @@ Do not commit WAD files.
 ./swdoom -iwad wads/freedoom1.wad
 ```
 
+## How to build the portable DMG
+
+Needs a built `./swdoom`, `wads/freedoom1.wad` (Freedoom Phase 1), and Homebrew SDL2/SDL3 for the link and copy sources.
+
+```
+scripts/package-macos.sh
+scripts/verify-macos-bundle.sh
+```
+
+`scripts/package-macos.sh` writes `dist/SW-Doom.app` and `dist/SW-Doom.dmg`. The app embeds rewritten SDL dylibs and Freedoom. The GitHub repo does not ship the IWAD. The local DMG does, because Freedoom is free.
+
 ## License
 
 - Engine: GNU GPL v2. See `LICENSE.TXT` and `id-README.TXT`.
