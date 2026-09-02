@@ -128,10 +128,11 @@ boolean			menuactive;
 #define SKULLXOFF		-32
 #define LINEHEIGHT		16
 
-// Freedoom TITLEPIC is a red field. Vanilla menu glyphs are the same
-// red, so New Game / episode / skill text disappears into the splash.
-// On the title loop, dim the pic and remap menu reds to gold.
+// Freedoom TITLEPIC is a red field. The New Game episode and skill
+// lists use the same red, so they vanish into the splash. Dim and
+// remap only those two screens, and only while TITLEPIC is up.
 static byte		menugold[256];
+static byte*		menu_xlat;
 
 static void M_InitMenuGold (void)
 {
@@ -142,11 +143,6 @@ static void M_InitMenuGold (void)
     // PLAYPAL 176-191 is the Doom red ramp; 160-167 is gold.
     for (i = 0; i < 16; i++)
 	menugold[176 + i] = (byte)(160 + (i >> 1));
-}
-
-static boolean M_TitleContrast (void)
-{
-    return gamestate == GS_DEMOSCREEN;
 }
 
 static void M_DarkBackground (void)
@@ -165,8 +161,7 @@ static void M_DarkBackground (void)
 
 static void M_DrawPatch (int x, int y, patch_t *patch)
 {
-    if (M_TitleContrast ())
-	v_translation = menugold;
+    v_translation = menu_xlat;
     V_DrawPatchDirect (x, y, 0, patch);
     v_translation = NULL;
 }
@@ -1791,8 +1786,14 @@ void M_Drawer (void)
 
     inhelpscreens = false;
 
-    if ((menuactive || messageToPrint) && M_TitleContrast ())
+    menu_xlat = NULL;
+    if (menuactive
+	&& gamestate == GS_DEMOSCREEN
+	&& (currentMenu == &EpiDef || currentMenu == &NewDef))
+    {
 	M_DarkBackground ();
+	menu_xlat = menugold;
+    }
 
     
     // Horiz. & Vertically center string and print it.
